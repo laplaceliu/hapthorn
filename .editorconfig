@@ -1,0 +1,12 @@
+; Top-most EditorConfig file
+root = true
+
+; 4-column space indentation
+[*.{cs,ts,js,json,ps1,cmd,sql}]
+indent_style = space
+indent_size = 4
+
+; 2-column space indentation
+[*.{less,sass,scss,html,cshtml,xml,config,json}]
+indent_style = space
+indent_size = 2
