@@ -9,8 +9,8 @@ namespace Hapthorn.Test.Services.Migrations
 {
     public class MigrationRunnerSpecs
     {
-        private IDbConnection DbConnection => Mock.Of<IDbConnection>();
-        private MigrationRunner Subject => new MigrationRunner(DbConnection);
+        private static IDbConnection DbConnection => Mock.Of<IDbConnection>();
+        private readonly MigrationRunner Subject = new MigrationRunner(DbConnection);
 
         [Fact]
         public void ShouldBeCreatable() => Subject.ShouldNotBeNull();
@@ -20,10 +20,6 @@ namespace Hapthorn.Test.Services.Migrations
         {
             var assembly = this.GetType().Assembly;
             Subject.FromAssembly(assembly);
-            Console.WriteLine("Contains [{0}] Assemblies", Subject.MigrationAssemblies.Count);
-            foreach(var asm in Subject.MigrationAssemblies){
-                Console.WriteLine("Assembly: " + asm.ToString());
-            }
             Subject.MigrationAssemblies.ShouldContain(assembly);
         }
     }
