@@ -1,6 +1,6 @@
 # Hapthorn
-Hapthorn is a project I'm working on to implement Activity Streams sort of like Mastodon but in .NET.
-It's also a way for me to keep my finger in the ASP.NET Core, Angular, and Docker ecosystems while also writing some Open Source.
+Hapthorn is a project I'm working on to implement [ActivityPub](http://w3c.github.io/activitypub/) sort of like [Mastodon](https://github.com/tootsuite/mastodon) but in [ASP.NET Core](http://www.asp.net/core).
+It's also a way for me to keep my finger in the [ASP.NET Core](http://www.asp.net/core), [Angular](https://angular.io/), and [Docker](https://www.docker.com/) ecosystems while also writing some Open Source.
 
 *Hapthorn isn't ready to use yet.*
 
