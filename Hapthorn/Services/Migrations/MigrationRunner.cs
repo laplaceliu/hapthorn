@@ -8,12 +8,13 @@ namespace Hapthorn.Services.Migrations
     public class MigrationRunner
     {
         private IDbConnection DbConnection { get; }
-        public Queue<Assembly> MigrationAssemblies { get; }
+        public Queue<Assembly> MigrationAssemblies { get; } = new Queue<Assembly>();
 
         public MigrationRunner(IDbConnection dbConnection)
         {
+            if (null == dbConnection) throw new ArgumentNullException(nameof(dbConnection));
+
             DbConnection = dbConnection;
-            MigrationAssemblies = new Queue<Assembly>();
         }
 
         public MigrationRunner FromAssembly(Assembly assembly)
