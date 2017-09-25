@@ -1,13 +1,10 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using Hapthorn.Services.ConsoleArguments;
-using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
+using Serilog;
+using Serilog.Events;
 
 namespace Hapthorn
 {
@@ -20,6 +17,7 @@ namespace Hapthorn
             
             Console.WriteLine("Building Web Host");
             var configuration = BuildConfiguration();
+            ConfigureLogger(configuration);
             var webHost = BuildWebHost(configuration);
 
             if ("web" == manager.CommandName)
@@ -34,8 +32,10 @@ namespace Hapthorn
                 .UseConfiguration(configuration)
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
+                .UseSetting("detailedErrors", "true")
                 .UseIISIntegration()
                 .UseStartup<Startup>()
+                .CaptureStartupErrors(true)
                 .Build();
         
         private static IConfigurationRoot BuildConfiguration() =>
@@ -45,5 +45,12 @@ namespace Hapthorn
                 .AddJsonFile("appsettings.json", optional: true)
                 .AddEnvironmentVariables()
                 .Build();
+        
+        private static void ConfigureLogger(IConfigurationRoot configuration) =>
+            Log.Logger = new LoggerConfiguration()
+                .ReadFrom.Configuration(configuration)
+                .WriteTo.LiterateConsole()
+                .MinimumLevel.Is(LogEventLevel.Debug)
+                .CreateLogger();
     }
 }

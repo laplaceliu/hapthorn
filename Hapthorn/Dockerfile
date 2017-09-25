@@ -19,9 +19,14 @@ RUN dotnet publish -c Release -o out
 # Build runtime image
 FROM microsoft/aspnetcore:2.0
 MAINTAINER Eric Hoff <eric@willcodeforcoffee.ca>
-LABEL Name=hapthorn Version=0.0.3
+LABEL Name=hapthorn Version=0.0.4
+
+RUN apt-get update -qq \
+ && apt-get install -y apt-transport-https ca-certificates gnupg2
+RUN curl -sL https://deb.nodesource.com/setup_8.x | /bin/bash -
+RUN apt-get update -qq && apt-get install -y build-essential nodejs
 
 WORKDIR /app
 COPY --from=build-env /src/out .
 EXPOSE 5000
-ENTRYPOINT ["dotnet", "Hapthorn.dll"]
+ENTRYPOINT ["dotnet", "Hapthorn.dll", "web"]
