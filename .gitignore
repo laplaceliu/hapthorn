@@ -249,3 +249,9 @@ ModelManifest.xml
 
 # Rider/IDEA/etc
 .idea
+
+# Don't version env
+.env
+
+# Ignore Docker-data
+docker_data/

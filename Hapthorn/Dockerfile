@@ -1,3 +1,4 @@
+# This is a two-stage build for testing with Docker.
 FROM microsoft/aspnetcore-build:2.0 AS build-env
 MAINTAINER Eric Hoff <eric@willcodeforcoffee.ca>
 
@@ -19,7 +20,7 @@ RUN dotnet publish -c Release -o out
 # Build runtime image
 FROM microsoft/aspnetcore:2.0
 MAINTAINER Eric Hoff <eric@willcodeforcoffee.ca>
-LABEL Name=hapthorn Version=0.0.4
+LABEL Name=hapthorn-dev Version=0.0.4
 
 RUN apt-get update -qq \
  && apt-get install -y apt-transport-https ca-certificates gnupg2
