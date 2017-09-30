@@ -8,4 +8,6 @@ then
 fi
 echo "Using DOCKER_HOST:"  $DOCKER_HOST
 echo "DOCKER_API_VERSION:" $DOCKER_API_VERSION
+echo "Docker version:  " $(docker --version)
+echo "Compose version: " $(docker-compose --version)
 docker-compose up
