@@ -5,6 +5,12 @@ services:
     env_file: .env
     ports:
       - "25432:5432"
+  migration:
+    build: .
+    env_file: .env
+    command: "dotnet Hapthorn.dll migrate"
+    depends_on:
+      - db
   app:
     build: .
     env_file: .env
@@ -12,3 +18,4 @@ services:
       - "5000:5000"
     depends_on:
       - db
+      - migration

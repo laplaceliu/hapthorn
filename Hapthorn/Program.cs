@@ -18,12 +18,19 @@ namespace Hapthorn
             Console.WriteLine("Building Web Host");
             var configuration = BuildConfiguration();
             ConfigureLogger(configuration);
-            var webHost = BuildWebHost(configuration);
 
-            if ("web" == manager.CommandName)
+            Console.WriteLine("  CommandName: [{0}]", manager.CommandName);
+
+            switch (manager.CommandName)
             {
-                Console.WriteLine("Building and starting Web Host");
-                webHost.Run();
+                case "web":
+                    Console.WriteLine("Building and starting Web Host");
+                    var webHost = BuildWebHost(configuration);
+                    webHost.Run();
+                    break;
+                case "migrate":
+                    Console.WriteLine("Executing Migrations");
+                    break;
             }
         }
 
