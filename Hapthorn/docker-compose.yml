@@ -8,9 +8,9 @@ services:
   migration:
     build: .
     env_file: .env
-    command: "dotnet Hapthorn.dll migrate"
     depends_on:
       - db
+    command: ["dotnet", "Hapthorn.dll", "migrate"]
   app:
     build: .
     env_file: .env
@@ -19,3 +19,4 @@ services:
     depends_on:
       - db
       - migration
+    command: ["dotnet", "Hapthorn.dll", "web"]

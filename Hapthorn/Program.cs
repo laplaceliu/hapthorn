@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Hapthorn.Data;
 using Hapthorn.Services.ConsoleArguments;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -8,7 +9,7 @@ using Serilog.Events;
 
 namespace Hapthorn
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
@@ -18,18 +19,18 @@ namespace Hapthorn
             Console.WriteLine("Building Web Host");
             var configuration = BuildConfiguration();
             ConfigureLogger(configuration);
+            var webHost = BuildWebHost(configuration);
 
             Console.WriteLine("  CommandName: [{0}]", manager.CommandName);
-
             switch (manager.CommandName)
             {
                 case "web":
                     Console.WriteLine("Building and starting Web Host");
-                    var webHost = BuildWebHost(configuration);
                     webHost.Run();
                     break;
                 case "migrate":
                     Console.WriteLine("Executing Migrations");
+                    new MigrationHost(configuration, webHost.Services).Run();
                     break;
             }
         }
