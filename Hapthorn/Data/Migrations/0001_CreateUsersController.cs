@@ -1,4 +1,4 @@
-using Migr8;
+using Hapthorn.Data.Migrator;
 
 namespace Hapthorn.Data.Migrations
 {
